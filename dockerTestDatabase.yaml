@@ -1,0 +1,26 @@
+# Minimal docker-compose example to initialize databases
+# to use with numerologyCalculator for testing.
+version: '3.1'
+
+services:
+
+  numerologyCalculatorPostgres:
+    image: postgres
+    restart: "no"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: numerology_calculator
+      POSTGRES_USER: numerology
+      POSTGRES_PASSWORD: calculator
+
+  numerologyCalculatorMySql:
+    image: mysql
+    restart: "no"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: numerology_calculator
+      MYSQL_USER: numerology
+      MYSQL_PASSWORD: calculator
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
