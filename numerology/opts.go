@@ -13,7 +13,6 @@ package numerology
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"strings"
 	"unicode"
@@ -143,11 +142,12 @@ const (
 // Gender is custom type that is needed so we can customize the Marshaling and Unmarshaling.
 type Gender rune
 
+// MarshalJSON creates a json string of for Gender.
 func (g Gender) MarshalJSON() ([]byte, error) {
 	return json.Marshal(strings.ToUpper(string(g)))
 }
 
-// JSON will come in as a string, but we want to convert it to a rune. Only accepted options are (M)ale,
+// UnmarshalJSON will come in as a string, but we want to convert it to a rune. Only accepted options are (M)ale,
 // (F)emale, and (B)oth. If the option is not one of these then it defaults to (B)oth.
 func (g *Gender) UnmarshalJSON(value []byte) error {
 	v := strings.Trim(string(value), `"`)
@@ -156,7 +156,7 @@ func (g *Gender) UnmarshalJSON(value []byte) error {
 	if genderTest == Male || genderTest == Female || genderTest == Both {
 		*g = genderTest
 	} else {
-		return errors.New(fmt.Sprintf("unknown gender code: '%v'", v))
+		return fmt.Errorf("unknown gender code: '%v'", v)
 	}
 	return nil
 }

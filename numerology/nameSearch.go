@@ -12,7 +12,6 @@
 package numerology
 
 import (
-	"errors"
 	"fmt"
 	"gorm.io/gorm"
 	"math/rand"
@@ -310,7 +309,7 @@ func nameSearch(n string, numberSystem NumberSystem, masterNumbers []int, reduce
 	var count int64
 	DB.Table(table).Count(&count)
 	if count == 0 {
-		return []NameNumerology{}, 0, errors.New(fmt.Sprintf("database table %v is empty", opts.Dictionary))
+		return []NameNumerology{}, 0, fmt.Errorf("database table %v is empty", opts.Dictionary)
 	}
 
 	// Lowercase the number system name for use later.

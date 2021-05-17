@@ -50,9 +50,9 @@ func Test_nameSearchDupCheck(t *testing.T) {
 		Sort:       "common",
 		Database:   "sqlite://file::memory:?cache=shared",
 	})
-	for i, _ := range names {
+	for i := range names {
 		_ = names[i].Full()
-		for j, _ := range names {
+		for j := range names {
 			if i != j && names[i] == names[j] {
 				t.Error("Duplicate name found when there shouldn't be any.")
 			}
