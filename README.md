@@ -1,4 +1,7 @@
+[![Build Status](https://www.travis-ci.com/LanderTome/numerologyCalculator.svg?branch=master)](https://www.travis-ci.com/LanderTome/numerologyCalculator) 
 [![Go Report Card](https://goreportcard.com/badge/github.com/LanderTome/numerologyCalculator)](https://goreportcard.com/report/github.com/LanderTome/numerologyCalculator)
+[![codecov](https://codecov.io/gh/LanderTome/numerologyCalculator/branch/master/graph/badge.svg?token=UH32UC6AQ0)](https://codecov.io/gh/LanderTome/numerologyCalculator)
+[![Go Reference](https://pkg.go.dev/badge/github.com/LanderTome/numerologyCalculator.svg)](https://pkg.go.dev/github.com/LanderTome/numerologyCalculator)
 
 Proof of concept: [https://numerology.mysticalriver.com](https://numerology.mysticalriver.com)
 
@@ -25,8 +28,7 @@ second.
 
 This calculator does not provide any numerological interpretations as part of the package. Just the raw numbers.
 
-See [godoc.org](https://godoc.org/github.com/LanderTome/numerologyCalculator/numerology)
-for additional documentation.
+See additional documentation at [pkg.go.dev.](https://pkg.go.dev/github.com/LanderTome/numerologyCalculator)
 
 ## Getting Started
 
