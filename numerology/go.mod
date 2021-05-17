@@ -1,4 +1,4 @@
-module github.com/LanderTome/numerologyCalculator
+module github.com/LanderTome/numerologyCalculator/calculator
 
 go 1.16
 
