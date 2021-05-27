@@ -39,6 +39,21 @@ func Test_nameSearchRandomCheck(t *testing.T) {
 	}
 }
 
+func Test_nameSearchOffsetCheck(t *testing.T) {
+	names, offset, _ := nameSearch("Ath? Doe", Pythagorean, []int{11, 22, 33}, true, NameSearchOpts{
+		Count:      50,
+		Offset:     0,
+		Seed:       3384983,
+		Dictionary: "usa_census",
+		Gender:     Gender('F'),
+		Sort:       "random",
+		Database:   "sqlite://file::memory:?cache=shared",
+	})
+	if len(names) > 0 && offset > 0 {
+		t.Error("Offset error.")
+	}
+}
+
 func Test_nameSearchDupCheck(t *testing.T) {
 	names, _, _ := nameSearch("John ? Doe", Pythagorean, []int{11, 22, 33, 44, 55, 66, 77, 88, 99}, true, NameSearchOpts{
 		Count:      50000,

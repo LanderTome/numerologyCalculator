@@ -405,7 +405,7 @@ func nameSearch(n string, numberSystem NumberSystem, masterNumbers []int, reduce
 		}
 	}
 	// If sort is random then we need to derive the offset a different way.
-	if strings.ToLower(opts.Sort) == RandomSort {
+	if offset > 0 && strings.ToLower(opts.Sort) == RandomSort {
 		offset = int64(opts.Offset + opts.Count)
 	}
 	return results, offset, nil
