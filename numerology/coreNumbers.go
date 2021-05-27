@@ -37,7 +37,7 @@ import (
 // AcceptableUnknownCharacters is a regexp that matches characters that should be considered acceptable in names.
 // This includes dashes (Hernandez-Johnson), periods (Jr.), and white space characters. This is used before
 // Marshaling to JSON. Replace this variable if a different set of AcceptableUnknownCharacters is needed.
-var AcceptableUnknownCharacters = regexp.MustCompile("[-\\s.]")
+var AcceptableUnknownCharacters = regexp.MustCompile("[-\\s.']")
 
 // unknownCharacters contains the set of characters that were not defined in the given numbers system. Used to
 // Function characters that are being used, but do not seem to have a numerological value. ex. !#$*
