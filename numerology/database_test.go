@@ -35,7 +35,7 @@ func TestConnectToDatabase(t *testing.T) {
 	}{
 		{"Connect Postgres", args{"postgres://user:pass@localhost/dbname"}, true},
 		{"Connect MySql", args{"mysql://user:pass@localhost/dbname"}, true},
-		{"Connect Sqlite", args{"sqlite://file::memory:?cache=shared"}, false},
+		{"Connect Sqlite", args{"sqlite://file::memory:"}, false},
 		{"Unknown", args{"oracle://user:pass@somehost.com/sid"}, true},
 		{"Nonsense", args{"nonsense://file"}, true},
 	}
@@ -67,7 +67,7 @@ func TestCreateDatabase(t *testing.T) {
 	}{
 		{"CannotWriteToDB", args{"sqlite://file::memory:?mode=ro", "test_names"}, true},
 		// {"CoverageCheck", args{"sqlite://file::memory:?cache=shared", "test_names"}, false},
-		{"DatabaseNotEmpty", args{"sqlite://file::memory:?cache=shared", "test_names"}, false},
+		{"DatabaseNotEmpty", args{"sqlite://file::memory:", "test_names"}, false},
 		{"UnableToConnect", args{"postgres://errorurl:5432", "test_names"}, true},
 	}
 	for _, tt := range tests {

@@ -16,6 +16,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/cheggaaa/pb/v3"
+	"github.com/spkg/bom"
 	"github.com/xo/dburl"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
@@ -144,10 +145,11 @@ func extractNamesFromFiles(directory string) (namePopularity, error) {
 			continue
 		}
 		// Look through files and extract the data
-		fscanner := bufio.NewScanner(file)
+		// bom.NewReader gets rid of UTF-8 byte order marks that can cause problems.
+		fscanner := bufio.NewScanner(bom.NewReader(file))
 		for fscanner.Scan() {
 			cols := strings.Split(fscanner.Text(), ",")
-			lname, gender, c := strings.TrimSpace(strings.ToLower(cols[0])), strings.TrimSpace(strings.ToUpper(cols[1]))[0], strings.TrimSpace(cols[2])
+			lname, gender, c := strings.TrimSpace(cols[0]), strings.TrimSpace(strings.ToUpper(cols[1]))[0], strings.TrimSpace(cols[2])
 			/*
 				----- This section is taken out because it only applies to some datasets. -----
 				// USA Census file names are truncated at 15 characters. There are only a few dozen and they are all
@@ -207,6 +209,31 @@ func getAllDirectories(baseDir string) []string {
 func setupDatabaseTable(table string) error {
 	if err := DB.Table(table).AutoMigrate(&precalculatedNumerology{}); err != nil {
 		return err
+	}
+
+	// Because we are using the same struct for all our tables, Gorm uses the same name for
+	// all the indexes. This causes and error since you can only have one index of each name.
+	// Manually rename the indexes after GORM creates them.
+	idxPrefix := "idx_precalculated_numerologies_"
+	indexes := []string{
+		"chaldean_consonants",
+		"chaldean_full",
+		"chaldean_vowels",
+		"pythagorean_consonants",
+		"pythagorean_full",
+		"pythagorean_vowels",
+		"gender",
+	}
+	for _, idx := range indexes {
+		if err := DB.Table(table).Migrator().RenameIndex(
+			&precalculatedNumerology{},
+			idxPrefix+idx, table+"_idx_"+idx,
+		); err != nil {
+			return err
+		}
+		if err := DB.Table(table).Migrator().DropIndex(&precalculatedNumerology{}, idxPrefix+idx); err != nil {
+			return err
+		}
 	}
 	return nil
 }
