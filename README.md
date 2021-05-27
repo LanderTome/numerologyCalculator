@@ -286,10 +286,10 @@ Each csv file needs to have three columns, however **NO HEADERS**.
 The columns are *name*, *gender*, *popularity*.
 
 ```csv
-mary,F,100
-michael,M,98
-john,M,95
-susan,F,94
+Mary,F,100
+Michael,M,98
+John,M,95
+Susan,F,94
 ```
 
 The popularity field is used so that names are sorted by how common they are. Often census compilations include
@@ -307,11 +307,11 @@ The database is populated by names coming from one or more CSV files based on a 
 ```
 baseDir\
   ├── table1\
-  │   ├── file1.csv
-  │   └── file2.csv
+  │     ├── file1.csv
+  │     └── file2.csv
   └── table2\
-      ├── file1.csv
-      └── file2.csv
+        ├── file1.csv
+        └── file2.csv
 ```
 
 The folder names within the `baseDir` will be used as table names in the database. The names in each csv file in the
@@ -380,8 +380,8 @@ other weird characters. What should a calculator do in this situation? Symbols d
 seems like there are two solutions: 1) Error on unknown characters or 2) Give them a zero value.
 
 Returning an error does not seem quite appropriate because sometimes you want to use strange characters in a name, and
-purposefully ignore them. Commonly occurring characters of this sort are spaces, dashes, and periods. It is not unusual
-to have a hyphenated name or to include a period in something like 'Jr.'.
+purposefully ignore them. Commonly occurring characters of this sort are spaces, dashes, apostrophes, and periods. It is 
+not unusual to have a hyphenated name or to include an apostrophe in a name like in A'isha.
 
 If someone had a name like 'Crazy! Smith', we could force them to drop the exclamation point to do the calculation, or
 we could allow it and just give it no value. That way it calculates with no extra work, and the symbols are reflected as
