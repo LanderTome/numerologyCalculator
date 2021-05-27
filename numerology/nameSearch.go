@@ -338,7 +338,7 @@ func nameSearch(n string, numberSystem NumberSystem, masterNumbers []int, reduce
 
 	// If there are letters around the ? then we need to do a LIKE search.
 	if len(nameToSearch) > 1 {
-		query = query.Where("name LIKE ?", strings.Replace(nameToSearch, "?", "%", -1))
+		query = query.Where("LOWER(name) LIKE ?", strings.Replace(strings.ToLower(nameToSearch), "?", "%", -1))
 	}
 
 	addQuerySort(query, opts.Sort, opts.Offset, opts.Seed)
@@ -397,7 +397,7 @@ func nameSearch(n string, numberSystem NumberSystem, masterNumbers []int, reduce
 		if len(selectedNames) <= opts.Count || i < len(selectedNames)-1 {
 			// Use reconstructedName because we want to replace the whole ? name, and not accidentally include additional letters.
 			// John Da? Doe would come out as John DaDavid Doe. reconstructedName avoids this.
-			newName := strings.Title(strings.Replace(reconstructedName, "?", r.Name, 1))
+			newName := strings.Replace(reconstructedName, "?", r.Name, 1)
 			// Calculate the numerology results using the new full name.
 			results = append(results, NameNumerology{newName, &requiredOpts, &searchOpts, nil, nil, nil})
 		} else {
