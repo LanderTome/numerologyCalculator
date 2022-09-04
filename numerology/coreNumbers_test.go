@@ -1,4 +1,4 @@
-// Copyright 2021 Robert D. Wukmir
+// Copyright 2022 Robert D. Wukmir
 // This file is subject to the terms and conditions defined in
 // the LICENSE file, which is part of this source code package.
 //
@@ -26,6 +26,7 @@ func Test_maskConstructor(t *testing.T) {
 		want letterMask
 	}{
 		{"One letter Y", args{"Y"}, letterMask{true}},
+		{"Devontay", args{"Devontay"}, letterMask{false, true, false, true, false, false, true, false}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
